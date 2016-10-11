@@ -1,0 +1,314 @@
+﻿@using Cor.Models
+@model AddressInfoViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="registration_container">
+    <div id="content">
+        <div class="row">
+            <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
+                <div class="wizard-header">
+                    <div class="label-big">New User Registration</div>
+                    <div class="label-small">Step 3 of 4:</div>
+                    <div class="label-normal">Address Info</div>
+                    @*<div class="clear top_spacer"></div>*@
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
+            @using (Html.BeginForm("Step4", "Register", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "Step3form" }))
+            {
+                List<string> Countries = new List<string>()
+                {
+                    "USA","Mexico","Japan","Bermuda","Canada"
+                };
+
+                List<string> States = new List<string>()
+                {
+                    "USA1","Mexico2","Japan3","Bermuda4","Canada5"
+                };
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger", style = "display:none" })
+                <table>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" style="white-space:nowrap;" for="Country"><span class="glyphicon glyphicon-asterisk "></span>Country</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border  col-xs-11 col-sm-11 col-md-11">
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(m => m.Country, new { @class = "form-control", @id = "Country" })
+                                            <div class="input-group-btn">
+                                                <span class="deleteicon" onclick="clearInput($('#Country'));"></span>
+                                                <button id="CountryKey" type="button" class="form-control btn dropdown-toggle" style="padding:0!important;width: 23px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                                                <ul id="Country-dropdown-menu" class="dropdown-menu pull-right">
+                                                @foreach (string item in Countries)
+                                                {
+                                                    <li onclick="selectItem(this, $('#Country'))"><a href="#">@item</a></li>
+                                                }
+                                                </ul>
+                                            </div><!-- /btn-group -->
+                                        </div><!-- /input-group -->
+                                    </div>
+                                    <div id="CountryE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" for="OfficeName"><span class="glyphicon glyphicon-asterisk "></span>Office Name</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextBoxFor(m => m.OfficeName, new { @class = "form-control" })
+                                    </div>
+                                    <div id="OfficeNameE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                            <div class="form-group hidden-xs">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" for="Address"><span class="glyphicon glyphicon-asterisk "></span>Address</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control text-area", rows = "3"})
+                                    </div>
+                                    <div id="AddressE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" for="PostalCode"><span class="glyphicon glyphicon-asterisk "></span>Postal Code</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control" })
+                                    </div>
+                                    <div id="PostalCodeE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" for="City"><span class="glyphicon glyphicon-asterisk "></span>City</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                                    </div>
+                                    <div id="CityE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" style="white-space:nowrap;" for="State"><span class="glyphicon glyphicon-asterisk "></span>State</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border  col-xs-11 col-sm-11 col-md-11">
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(m => m.State, new { @class = "form-control", @id = "State" })
+                                            <div class="input-group-btn">
+                                                <span class="deleteicon" onclick="clearInput($('#State'));"></span>
+                                                <button id="StateKey" type="button" class="form-control btn dropdown-toggle" style="padding:0!important;width: 23px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                                                <ul id="State-dropdown-menu" class="dropdown-menu pull-right">
+                                                    @foreach (string item in States)
+                                                    {
+                                                        <li onclick="selectItem(this, $('#State'))"><a href="#">@item</a></li>
+                                                    }
+                                                </ul>
+                                            </div><!-- /btn-group -->
+                                        </div><!-- /input-group -->
+                                    </div>
+                                    <div id="StateE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <div class="info-step3">
+                                    <div class="info-step-bg">
+                                        <div>
+                                            Instructions:
+                                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                        </div>
+                                        <label class="control-label" style="text-align:left">
+                                            Enter company name and primary mailing address. City and State will be filled in automatically once you enter Postal Code.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group visible-xs">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" for="Address"><span class="glyphicon glyphicon-asterisk "></span>Address</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border">
+                                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control text-area", rows = "3" })
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            }
+            </div>
+        </div>
+    </div>
+    <div id="foo">
+        <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
+            <div class="row">
+                <a class="prevent-history a-hidden-xs" href="/Home/Index">Back to Login Page</a>
+                <input type="button" name="btnNext" class="prevent-history btn-next" value="next" onclick="$('#Step3form').submit();" />
+                <input type="button" id="id_prev" class="btn-prev" value="Previous" onclick="location.href = '/Register/Step2'">
+            </div>
+            <div class="row">
+                <a class="prevent-history a-visible-xs" href="/Home/Index">Back to Login</a>
+                <div class="registration_copyright">
+                    <span class="a-hidden-xs">CORAL MULTI-SIDED PLATFORM 0.2.6.95 iQA</span>
+                    <span class="a-visible-xs">CORAL PLATFORM 0.2.6.95 iQA</span>
+                    <sub class="images_logo_png"></sub>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        bindClearButton($('#Country'));
+        bindClearButton($('#State'));
+
+        var CountryDrop = $("#Country-dropdown-menu");
+        var StateDrop = $("#State-dropdown-menu");
+        var CountryKey = $("#CountryKey");
+        var StateKey = $("#StateKey");
+
+        CountryKey.bind('click', function () {
+            var width = $(".input-group").width();
+            CountryDrop.width(width);
+        });
+
+        StateKey.bind('click', function () {
+            var width = $(".input-group").width();
+            StateDrop.width(width);
+        });
+
+        $("#Step3form").validate({
+            errorLabelContainer: '#validationSummary ul',
+            rules: {
+                Country: {
+                    required: true,
+                },
+                OfficeName: {
+                    required: true,
+                },
+                Address: {
+                    required: true,
+                },
+                PostalCode: {
+                    required: true,
+                    digits: true,
+                },
+                City: {
+                    required: true,
+                },
+                State:{
+                    required: true,
+                }
+            },
+            messages: {
+                Country: {
+                    required: "Field \"Country\" is required",
+                },
+                OfficeName: {
+                    required: "Field \"Office Name\" is required",
+                },
+                Address: {
+                    required: "Field \"Address\" is required",
+                },
+                PostalCode: {
+                    required: "Field \"Postal Code\" is required",
+                    digits: "This field accepts only numbers",
+                },
+                City: {
+                    required: "Field \"City\" is required",
+                },
+                State:{
+                    required: "Field \"State\" is required",
+                },
+            },
+
+            invalidHandler: myInvalidHandler,
+            success: onSuccess,
+            highlight: onHighlight,
+            unhighlight: onUnhighlight,
+
+            //invalidHandler: function (event, validator) {
+            //    var tips = Opentip.tips;
+            //    for (var i = 0; i < validator.numberOfInvalids() ; i++) {
+            //        var name = validator.errorList[i].element.name;
+            //        var mes = validator.errorList[i].message;
+            //        var iderrorE = '#' + name + 'E';
+            //        var errorE = $(iderrorE);
+            //        errorE[0].style.display = 'block';
+            //        if (tips.length != 0) {
+            //            for (var i in tips) {
+            //                var b = true;
+            //                if (tips[i].content == mes) {
+            //                    b = false;
+            //                    break;
+            //                }
+            //            }
+            //            if (b) {
+            //                //alert("+tip+= " + mes);
+            //                new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+            //            }
+            //        } else {
+            //            //alert("newtip+= " + mes);
+            //            new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+            //        }
+            //    }
+            //},
+
+            //success: function (label, element) {
+            //    label.display = 'none';
+            //    var iderrorE = '#' + element.name + 'E';
+            //    var errorE = $(iderrorE);
+            //    errorE[0].style.display = 'none';
+            //},
+
+            //highlight: function (element, errorClass, validClass) {
+            //        $(element).addClass(errorClass).removeClass(validClass);
+            //        var iderrorE = '#' + element.name + 'E';
+            //        var errorE = $(iderrorE);
+            //        errorE[0].style.display = 'block';
+            //        var errorFromValidator = $.grep(this.errorList, function (e, index) {
+            //            if (e.element == element) return true; 
+            //            return false; 
+            //        });
+            //        var newcontent = errorFromValidator[0].message;
+            //        var tips = Opentip.tips;
+            //        if (tips.length != 0) {
+            //            var tip = $.grep(tips, function (e, index) {
+            //                if (e.triggerElement.selector == iderrorE) return true;
+            //                return false;
+            //            });
+            //            if (tip.length != 0) {
+            //                if (tip[0].content != newcontent) {
+            //                    tip[0].setContent(newcontent);
+            //                    //alert("new content: " + newcontent);
+            //                }
+            //            } else {
+            //                //alert("new tip");
+            //                new Opentip(errorE, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+            //            }
+            //        } else new Opentip(errorE, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+            //},
+
+            //unhighlight: function (element, errorClass, validClass) {
+            //    if (!(element.name == "Fax" || element.name == "Mobile" || element.name == "MName")) {
+            //        $(element).removeClass(errorClass).addClass(validClass);
+            //        //$(element.form).find("div[id=#" + element.id + "E]").removeClass(errorClass);
+            //        var iderrorE = '#' + element.name + 'E';
+            //        var errorE = $(iderrorE);
+            //        errorE[0].style.display = 'none';
+            //    }
+            //},
+
+        });
+
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,360 @@
+﻿@using Cor.Models
+@model ContactInfoViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="registration_container">
+    <div id="content">
+        <div class="row">
+            <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
+                <div class="wizard-header">
+                    <div class="label-big">New User Registration</div>
+                    <div class="label-small">Step 1 of 4:</div>
+                    <div class="label-normal">Contact Info</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
+            @using (Html.BeginForm("Step2", "Register", FormMethod.Post, new { @class = "form-horizontal", role = "form" , id = "Step1form"}))
+            {
+                var items = new List<SelectListItem>()
+                {
+                    new SelectListItem() { Text = "Mr.", Value = "Mr." },
+                    new SelectListItem() { Text = "Msr.", Value = "Msr." },
+                    new SelectListItem() { Text = "Ms.", Value = "Ms." },
+                    new SelectListItem() { Text = "Dr.", Value = "Dr." },
+                };
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger", style = "display:none"})
+                <table>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" style="white-space:nowrap;" for="Salutation"><span class="glyphicon glyphicon-asterisk "></span>Salutation</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div id="comboboxSalut"class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @*@Html.DropDownListFor(m => m.Salutation, items, "-Unspecified-", new { @class = "form-control" })*@
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(m => m.Salutation, new { @class = "form-control" })
+                                            <div class="input-group-btn">
+                                                <span class="deleteicon" onclick="clearInput($('#Salutation'));"></span>
+                                                <button id="SalutKey" type="button" class="form-control btn dropdown-toggle" style="padding:0!important;width: 23px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="glyphicon glyphicon-chevron-down"></span>
+                                                </button>    
+                                                <ul id="my-dropdown-menu" class="dropdown-menu pull-right">
+                                                    <li onclick="selectItem(this, $('#Salutation'))"><a href="#">Mr.</a></li>
+                                                    <li onclick="selectItem(this, $('#Salutation'))"><a href="#">Mrs.</a></li>
+                                                    <li onclick="selectItem(this, $('#Salutation'))"><a href="#">Ms.</a></li>
+                                                    <li onclick="selectItem(this, $('#Salutation'))"><a href="#">Dr.</a></li>
+                                                </ul>
+                                            </div><!-- /btn-group -->
+                                        </div><!-- /input-group -->
+                                    </div>
+                                    <div id="SalutationE"class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" for="FName"><span class="glyphicon glyphicon-asterisk "></span>First Name</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextBoxFor(m => m.FName, new { @class = "form-control" })
+                                    </div>
+                                    <div id="FNameE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.MName, new { @class = "col-sm-5 col-md-4 control-label upperCase" })
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextBoxFor(m => m.MName, new { @class = "form-control" })
+                                    </div>
+                                    <div id="MNameE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" for="LName"><span class="glyphicon glyphicon-asterisk "></span>Last Name</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextBoxFor(m => m.LName, new { @class = "form-control" })
+                                    </div>
+                                    <div id="LNameE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" for="Company"><span class="glyphicon glyphicon-asterisk "></span>Company</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextBoxFor(m => m.Company, new { @class = "form-control" })
+                                    </div>
+                                    <div id="CompanyE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" for="Title"><span class="glyphicon glyphicon-asterisk "></span>Title</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                                    </div>
+                                    <div id="TitleE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" for="Email"><span class="glyphicon glyphicon-asterisk "></span>Email</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    </div>
+                                    <div id="EmailE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                                <div class="col-md-offset-4 col-sm-offset-5 col-sm-7  col-md-8">
+                                    <span class="text-left control-label" style="cursor:default;"><small>Email will be used as a login</small></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" for="ConfirmEmail"><span class="glyphicon glyphicon-asterisk "></span>Confirm Email</label>
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextBoxFor(m => m.ConfirmEmail, new { @class = "form-control" })
+                                    </div>
+                                    <div id="ConfirmEmailE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 col-md-4 control-label upperCase" for="Phone"><span class="glyphicon glyphicon-asterisk "></span>Phone</label>
+                                    <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control phone", type = "tel", placeholder = "(___) ___-____" })
+                                    </div>
+                                    <div id="PhoneE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Fax, new { @class = "col-sm-5 col-md-4 control-label upperCase ignore" })
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @*<input id="phoneFax" type="tel" name="tel" placeholder="(___) ___-____" pattern="([0-9]{3})\-[0-9]{3}\-[0-9]{4}">*@
+                                        @Html.TextBoxFor(m => m.Fax, new { @class = "form-control phone", type = "tel", placeholder = "(___) ___-____" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Mobile, new { @class = "col-sm-5 col-md-4 control-label upperCase ignore" })
+                                <div class="col-sm-7 col-md-8">
+                                    <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control phone", type = "tel", placeholder = "(___) ___-____" })
+                                    </div>
+                                    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <input id="btnSubmit" type="submit" name="btnSubmit" hidden="hidden" value="next" />
+            }
+            </div>
+        </div>
+    </div>
+    <div id="foo">
+        <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
+            <div class="row">
+                <a class="prevent-history" href="/Home/Index">Back to Login Page</a>
+                <input type="button" name="btnNext" class="prevent-history btn-next" value="next" onclick="$('#Step1form').submit();"/>
+            </div>
+            <div class="row">
+                <div class="registration_copyright">
+                    <span >CORAL MULTI-SIDED PLATFORM 0.2.6.95 iQA</span>
+                    <sub class="images_logo_png a-hidden-xs" style="display:inline-block"></sub>
+                    <span class="images_logo_png a-visible-xs" style="vertical-align:middle;margin:0"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.phone').mask('(999) 999-9999');
+
+        var div = $("#my-dropdown-menu");
+        var SalutKey = $("#SalutKey");
+
+        SalutKey.bind('click', function () {
+            var width = $(".input-group").width();
+            div.width(width);
+        });
+        
+        bindClearButton($('#Salutation'));
+
+        $.validator.addMethod( "regex", function (value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+            },
+            "Please check your input."
+        );
+
+        $("#Step1form").validate({
+            ignore:'.ignore',
+            errorLabelContainer: '#validationSummary ul',
+            rules: {
+
+                Salutation: {
+                    required: true,
+                },
+                FName: {
+                    regex: "^[A-Za-z -]+$",
+                    required: true,
+                },
+                MName: {
+                    regex: "^[A-Za-z -]+$",
+                },
+                LName: {
+                    regex: "^[A-Za-z -]+$",
+                    required: true,
+                },
+                Company: {
+                    required: true,
+                },
+                Title: {
+                    regex: "^[A-Za-z -]+$",
+                    required: true,
+                },
+                Email: {
+                    email: true,
+                    required: true,
+                },
+                ConfirmEmail: {
+                    email: true,
+                    required: true,
+                    equalTo: "#Email",
+                },
+                Phone: {
+                    required: true,
+                }
+            },
+            messages: {
+                Salutation: {
+                    required: "Field \"Salutation\" is required",
+                },
+                FName: {
+                    required: "Field \"First Name\" is required",
+                    regex: "This field accepts only letters. Numbers and special characters are not allowed",
+                },
+                MName: {
+                    regex: "This field accepts only letters. Numbers and special characters are not allowed",
+                },
+                LName: {
+                    required: "Field \"Last Name\" is required",
+                    regex: "This field accepts only letters. Numbers and special characters are not allowed"
+                },
+                Company: {
+                    required: "Field \"Company\" is required",
+                },
+                Title: {
+                    required: "Field \"Title\" is required",
+                    regex: "This field accepts only letters. Numbers and special characters are not allowed"
+                },
+                Email: {
+                    required: "Field \"Email\" is required",
+                },
+                ConfirmEmail: {
+                    required: "Field \"Confirm Email\" is required",
+                    equalTo: "Email and Confirmation Email do not match",
+                },
+                Phone: {
+                    required: "Field \"Phone\" is required",
+                }
+
+            },
+            invalidHandler: myInvalidHandler,
+            success: onSuccess,
+            highlight: onHighlight,
+            unhighlight: onUnhighlight,
+
+            //invalidHandler: function (event, validator) {
+            //    var tips = Opentip.tips;
+            //    for (var i = 0; i < validator.numberOfInvalids() ; i++) {
+            //        var name = validator.errorList[i].element.name;
+            //        var mes = validator.errorList[i].message;
+            //        var iderrorE = '#' + name + 'E';
+            //        var errorE = $(iderrorE);
+            //        errorE[0].style.display = 'block';
+            //        if (tips.length != 0) {
+            //            for (var j in tips) {
+            //                var b = true;
+            //                if (tips[j].content == mes) {
+            //                    b = false;
+            //                    break;
+            //                }
+            //            }
+            //            if (b) {
+            //                //alert("+tip+= " + mes);
+            //                new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+            //            }
+            //        } else {
+            //            //alert("newtip+= " + mes);
+            //            new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+            //        }
+            //    }
+            //},
+
+            //success: function (label, element) {
+            //    label.display = 'none';
+            //    var iderrorE = '#' + element.name + 'E';
+            //    var errorE = $(iderrorE);
+            //    errorE[0].style.display = 'none';
+            //},
+
+            //highlight: function (element, errorClass, validClass) {
+            //    if (!(element.name == "Fax" || element.name == "Mobile")) {
+            //        $(element).addClass(errorClass).removeClass(validClass);
+            //        var iderrorE = '#' + element.name + 'E';
+            //        var errorE = $(iderrorE);
+            //        errorE[0].style.display = 'block';
+            //        var errorFromValidator = $.grep(this.errorList, function (e, index) {
+            //            if (e.element == element) return true;
+            //            return false;
+            //        });
+            //        var newcontent = errorFromValidator[0].message;
+            //        var tips = Opentip.tips;
+            //        if (tips.length != 0) {
+            //            var tip = $.grep(tips, function (e, index) {
+            //                if (e.triggerElement.selector == iderrorE) return true;
+            //                return false;
+            //            });
+            //            if (tip.length != 0) {
+            //                if (tip[0].content != newcontent) {
+            //                    tip[0].setContent(newcontent);
+            //                    //alert("new content: " + newcontent);
+            //                }
+            //            } else {
+            //                new Opentip(errorE, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+            //            }
+            //        } else new Opentip(errorE, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+            //    }
+            //},
+
+            //unhighlight: function (element, errorClass, validClass) {
+            //    if (!(element.name == "Fax" || element.name == "Mobile")) {
+            //        $(element).removeClass(errorClass).addClass(validClass);
+            //        var iderrorE = '#' + element.name + 'E';
+            //        var errorE = $(iderrorE);
+            //        errorE[0].style.display = 'none';
+            //    }
+            //},
+
+        });
+
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquerymask")
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

@@ -1,0 +1,412 @@
+﻿@using Cor.Models
+@model PasswordViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="registration_container">
+    <div id="content">
+        <div class="row">
+            <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
+                <div class="wizard-header">
+                    <div class="label-big">New User Registration</div>
+                    <div class="label-small">Step 4 of 4:</div>
+                    <div class="label-normal">Password</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-1 col-md-offset-1 col-sm-10 col-md-10 col-xs-12">
+                @using (Html.BeginForm("Step5", "Register", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "Step4form" }))
+            {
+
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger", style = "dispaly:none" })
+                    <table>
+                        <tr>
+                            <td id="tdPass">
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-md-4 control-label upperCase" for="Password"><span class="glyphicon glyphicon-asterisk "></span>Password</label>
+                                    <div class="col-sm-8 col-md-8">
+                                        <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                        </div>
+                                        <div id="PasswordE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-md-4 control-label upperCase" for="ConfirmPassword"><span class="glyphicon glyphicon-asterisk "></span>Confirm Password</label>
+                                    <div class="col-sm-8 col-md-8">
+                                        <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                        </div>
+                                        <div id="ConfirmPasswordE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label class="col-sm-4 col-md-4 control-label upperCase" for="Capcha"><span class="glyphicon glyphicon-asterisk "></span>Capcha</label>
+                                    <div class="col-sm-8 col-md-8">
+                                        <div class="col-xs-7 col-sm-8 col-md-8" style="padding:0px">
+                                            <span id="random-capcha" class="capcha-label">5 + 5 = ? </span>
+                                            <span class="capcha-label">Enter the amount:</span>
+                                        </div>
+                                        <div class="edit-border col-xs-4 col-sm-3 col-md-3">
+                                            @Html.TextBox("Capcha","", new { @class = "form-control" })
+                                        </div>
+                                        <div id="CapchaE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-sm-8 col-md-8 col-lg-8">
+                                        <div class="col-xs-11 col-sm-11 col-md-11" style="padding:0px">
+                                            <input id="IsReadAccept" type="checkbox" name="IsReadAccept" value="Accept">
+                                            <label for="IsReadAccept" class="check-label" style="display:inline;"></label>
+                                            @Html.Label("I have read and accept the terms of use", new { @class = "control-label", style = "display:inline;" })
+                                        </div>
+                                        <div id="IsReadAcceptE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <div class="info-step3">
+                                        <div class="info-step-bg">
+                                            <div>
+                                                Instructions:
+                                                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                            </div>
+                                            <div class="control-label" style="text-align:left">
+                                                <p>
+                                                    Password must be at least 8 characters in length and include both upper and lower case  letters as well as at least one number.
+                                                </p>
+                                                <p>
+                                                    Review the CoralMSP <br>
+                                                    <a class="prevent-history" onclick="ShowMessageTerms();" href="#"> Terms of Use </a> and <br>
+                                                    <a class="prevent-history" onclick="ShowMessagePrivacy();" href="#"> Privacy Policy </a> and indicate that you have read and accepted these terms.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+    <div id="foo">
+        <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
+            <div class="row">
+                <a class="prevent-history a-hidden-xs" href="/Home/Index">Back to Login Page</a>
+                <input type="button" name="btnNext" class="prevent-history btn-next" value="next" onclick="$('#Step4form').submit();" />
+                <input type="button" id="id_prev" class="btn-prev" value="Previous" onclick="location.href = '/Register/Step3'">
+            </div>
+            <div class="row">
+                <a class="prevent-history a-visible-xs" href="/Home/Index">Back to Login</a>
+                <div class="registration_copyright">
+                    <span class="a-hidden-xs">CORAL MULTI-SIDED PLATFORM 0.2.6.95 iQA</span>
+                    <span class="a-visible-xs">CORAL PLATFORM 0.2.6.95 iQA</span>
+                    <sub class="images_logo_png"></sub>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <span id="header_image" class="a-hidden-xs" alt="Logo"></span>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <span class="modal-title" id="myModalLabel">Coral MSP Terms of Use</span>
+                </div>
+            </div>
+            <div class="modal-body" style="padding:0px 10px;">
+                <div id="TermsOfUseContainer" class="control-label" style="text-align:left;overflow-y:scroll; width:100%; height:400px;">
+                    <p>   
+                    Coral Technology, LLC (Coral) provides "Coral MSP" ?a service that enables users to create individualized polls, obtain poll results, and use related services through our downloadable applications, "Coral MSP", and our website located at www.coralmsp.com. For simplicity, we'll refer to any or all of this as the "Service".
+                        When you access or use the Service, you are agreeing to the following terms and conditions ("Terms") and acknowledge that they are a binding legal agreement between you and Coral Technology, LLC.
+                    <p>
+                        1. Acknowledgement and Acceptance<br />
+                        By accessing or using any part of the Service, you accept and agree to all of the terms and conditions set forth in this Agreement and in our Privacy Polity. If you do not agree to all the terms in the Agreement, then you may not access or use the Service.
+                        The Service is intended solely for persons who are 13 or older. If you're younger than 13, you need your parents?permission to use our Service.
+                    <p>
+                        2. Modification to the Agreement<br />
+                        Coral Technology, LLC. reserves the right to change any part of the Agreement. If we choose to modify this Agreement, we'll post changes and give you a chance to provide feedback before new agreement becomes effective. Once it becomes effective your continued use of the Service will mean, you are confirming your acceptance of the new Agreement. If you don't agree then you need to stop using the Service.
+                    <p>
+                        3. User Responsibilities<br />
+                        In order to gain access to the Service, you are required to register for an account that is accessed by a username and password ("Account") or to sign up with an existing Social Network account.
+                        You must provide accurate information about who you are, like your name, email, and any other information requested in order to complete the signup process. You must be a living human, not a ?ot? You must comply with our Anti-Spam policy. Please see Section 11 below. Your Account may only be used by one person - a single Account shared by multiple people is not permitted. You may create a separate Account for as many people as you'd like. You are solely responsible for maintaining the security of your of your password and account information. We cannot and will not be liable for any loss or damage from your failure to comply with this security obligation. You are responsible for all Content posted and activity that occurs under your account. You may not use the Service for any illegal or unauthorized purpose. Please see Section below.
+                        You enter and use the Site and the Services at your own risk. Coral Technology, LLC. is not responsible for your activities, surveys, content, results or questions from respondents, other data, or any other matter concerning your use of the Services.
+                    <p>
+                        4. Content<br />
+                        Any material, content, information, whether protected by copyright or not (?ontent? generated, posted or used by a User on the Site or through use of the Service falls completely under User? liability and control, and is not considered generated by Coral Technology, LLC.
+                        By making Content available you agree not to use, misuse or misappropriate any brand names, trademarks, service marks, patents, images, text or other proprietary material or content of another on or through the Service or the Site. If you use any such proprietary material or content, by doing so, you warrant that you have the right and authority to do so.
+                    <p>
+                        5. Prohibited Conduct<br />
+                        You acknowledge, warrant and agree that:
+                        You will not transmit through the Service or the Site any pornographic, obscene, offensive, threatening, harassing, libelous, hate-oriented, harmful, defamatory, racist, illegal or otherwise objectionable material or content. You will not send any transmission that attempts to hide your identity or represents you as someone else. Any attempt by you to transmit, publish or distribute material or content that promotes, provides or relates to instructional information about illegal activities or promotes physical harm or injury against any individual or group is strictly prohibited. You will not use the Service or the Site to send any materials, including polls and requests to take polls, to any persons under 13 years of age unless and until you have taken and follow all necessary action and compliance pursuant to state and federal laws. You will not upload or distribute in any way any files that contain viruses, corrupted files or any similar software or programs that may damage the operation of anyone else's computer, the Service or the Site.
+                        If you engage in any activity set forth in this paragraph or violate any terms or conditions of these Terms of Use, your account will be terminated and use of the Service and Site prohibited.
+                    <p>
+                        6. Cancellation<br />
+                        You may cancel or terminate your account at any time, by following the process made available for that purpose on the Website. Cancellation by email or phone will not be considered valid.
+                    <p>
+                        7. Termination<br />
+                        Coral, in its sole discretion, has the right to suspend or terminate your Account and your access to the Service, for any reason at any time. Any termination of your Account will result in the deletion of your Account and the content in it, and the termination of your access to Service. Coral reserves the right to refuse service to anyone for any reason at any time.
+                    <p>
+                        8. Modification to Services<br />
+                        You acknowledge and agree that we may, with or without notice, modify or terminate the Services and/or the Site. Modifications of the Service may include, without limitation, changes in the maximum allowable memory space, number of poll respondents, number of polls, and number of poll questions that may be created, saved, sent or used through the Site.
+                    <p>
+                        9. PAYMENT TERMS.<br />
+                        Free
+                    <p>
+                        10. Privacy and Confidentiality.<br />
+                        We are committed to protecting the privacy and confidential information of Users. You agree to maintain and comply with a privacy policy that is consistent with the "Coral MSP" Privacy Policy.
+                        We agree not to use any of your Confidential Information for any purpose except to operate the Site and Services in accordance with this Agreement. We agree not to disclose any of your Confidential Information to any third party other than to our employees and consultants who are bound by confidentiality obligations and are required to have access to the Confidential Information in order to operate the Site and Services.
+                    <p>
+                        11. Anti-Spam Policy<br />
+                        You acknowledge, warrant and agree that:
+                        You will not engage in any spamming activities in your use of the Services. You understand that Coral MSP is serving as "polls host" and is not the sender or originator of any polls, and that you are therefore solely responsible for your emailing activities using the Services. You warrant that you either have an ongoing business or personal relationship with or have obtained consents to send emails inviting participation in a survey to the persons on your own email list and on any lists you have acquired from a third party. Your use of the Site and Services will not violate any U.S. or foreign spamming, junk mail or other related laws or regulations prohibiting or discouraging unsolicited mail.
+                        We will terminate the account of any User determined to have used the Services in connection with any spam email or otherwise breached these Terms of Use.
+                    <p>
+                        12. Disclaimers and Limitations of Liability
+                    <p>
+                        12.1. Disclaimers.<br />
+                        While it is in our interest to provide you with a great experience when using the Services, there are certain things we do not promise about them. We try to keep our online Services up, but they may be unavailable from time to time for various reasons.
+                        YOU EXPRESSLY ACKNOWLEDGE AND AGREE THAT USE OF THE SERVICE AND THE SITE IS AT YOUR SOLE RISK. THE SERVICE AND THE SITE ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS.
+                        TO THE FULLEST EXTENT ALLOWED BY LAW, Coral EXPRESSLY DISCLAIMS ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. THE CONTENTS OF THE SERVICES OR THE SITE MAY CONTAIN BUGS, ERRORS, PROBLEMS OR OTHER LIMITATIONS. Coral ASSUMES NO LIABILITY OR RESPONSIBILITY FOR ANY ERRORS OR OMISSIONS IN CONTENT.
+                        Coral IS NOT RESPONSIBLE FOR THE CONTENTS OF ANY SURVEY OR INVITATIONS TO TAKE SURVEYS OR INVITATIONS TO VIEW SURVEY RESULTS CREATED ON OR THROUGH THE SERVICE NOR IS IT RESPONSIBLE FOR THE RESPONSES SUBMITTED TO ANY SURVEY REQUESTS OR FOR THE RESULTS GENERATED BY SURVEY RESPONSES. Coral IS NOT RESPONSIBLE FOR ANY DAMAGES, INCLUDING WITHOUT LIMITATION, LOST PROFITS, BUSINESS INTERRUPTION OR OTHER LOSS RESULTING FROM USE OF OR RELIANCE IN ANY WAY ON ANY SURVEY, SURVEY RESPONSES OR SURVEY RESULTS CREATED ON OR THROUGH THE SERVICE OR THE SITE. IT IS SOLELY YOUR RESPONSIBILITY TO EVALUATE THE ACCURACY, RELIABILITY, COMPLETENESS AND USEFULNESS OF ANY SURVEYS, SURVEY RESPONSES, SURVEY RESULTS OR OTHER INFORMATION RECEIVED WHILE USING THE SERVICE OR SITE.
+                    <p>
+                        12.2. Limitations of Liability<br />
+                        TO THE FULLEST EXTENT PERMISSIBLE PURSUANT TO APPLICABLE LAW, NEITHER POLLROOMS.COM NOR ANY PARENT ENTITIES, AFFILIATES, OFFICERS OR EMPLOYEES SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL OR PUNITIVE DAMAGES ARISING OUT OF YOUR ACCESS TO, USE OF, INABILITY TO USE, OR RELIANCE ON THE SERVICE OR ANY SURVEYS, SURVEY RESPONSES OR SURVEY RESULTS, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. IF YOU ARE DISSATISFIED WITH THE SERVICE, THE MATERIALS AVAILABLE ON OR THROUGH THE SERVICE OR THE SITE, OR WITH ANY OF THE TERMS OF THIS AGREEMENT, YOUR SOLE AND EXCLUSIVE REMEDY IS TO
+                    <p>
+                        13. Proprietary Rights<br />
+                        Coral owns the content including the graphics, names, text, software, pictures, compilations, poll templates, design, processes, or other material contained in the Service and the Site to the extent such content is provided and/or designed by Coral. It is all protected by copyrights, trademarks, service marks, patents, trade secrets, or other proprietary rights (called "Intellectual Property Rights"). No one may copy, reproduce, distribute in any way, or decompile, reverse engineer or disassemble the content.
+                    <p>
+                        14. Jurification<br />
+                        These Terms of Use and the relationship between you and Coral shall be treated in according with the United Nations Convention on Contracts for the International Sale of Goods. Coral makes no representation that the materials and content on the Site or relating to the Services are appropriate or available for use in other locations, and accessing them from territories where their contents are illegal is strictly forbidden. Those who access the Services or the Site from other locations do so on their own initiative and at their own risk and are responsible for compliance with local laws.
+                    <p>
+                        15. General<br />
+                        These Terms constitute the entire and exclusive understanding and agreement between Coral MSP and you regarding the Service and Service Content, and these Terms supersede and replace any and all prior oral or written understandings or agreements between Coral MSP and you regarding the Service and Service Content. You agree that each use of the Services and the Site reaffirms your acknowledgment and agreement to the most current version of these Terms of Use.
+                        In any dispute arising from the relationship between you and Coral or these Terms of Use, the prevailing party shall be entitled to reasonable attorneys' fees and costs. The failure by Coral to enforce any right or provision under these Terms of Use shall not constitute a waiver of that provision or any other provision of these Terms of Use. If any provision of these Terms of Use shall be determined to be invalid or unenforceable by a court of competent jurisdiction, the other provisions shall remain in full force and effect.
+
+                </div>
+                <div id="PrivacyPolicyContainer" class="control-label" style="text-align:left;overflow-y:scroll; width:100%; height:400px;">
+                    Coral Technology, LLC (Coral) provides "Coral MSP" ?the service that enables users to create individualized polls, obtain polls results, and use related services through our downloadable application, "Poll Rooms", and our website located at www.pollrooms.com. For simplicity, we'll refer to any or all of this as the "Service".
+                    We provide this Privacy Policy so you know what we do regarding the collection, use and disclosure of personal information we receive from users of the Service. This Privacy Policy applies only to information that you provide to us through the Service.
+                    <p>
+                        Our Privacy Principles:
+                        <ul>
+                            <li>We take your privacy very seriously.
+                            <li>We collect your information to provide and improve our Service and to increase your enjoyment in using it.
+                            <li>We don't disclose your Personal Information to Third Parties except as set forth in this Privacy Policy.
+                            <li>Providing us with your Personal Information is your choice.
+                        </ul>
+                        What information does Poll Rooms collect when I sign up?
+                        <br />You may not use any features of the Service without registering; however, registering with a "Poll Rooms" account does not require a valid email address and gives you access to creating Private Rooms and Polls. To get access to everything (including the ability to create Public rooms, polls etc.) you will need to sign in with a valid social networks account and doing so will make you a "registered user". Your email address will never be publicly visible or publicly associated with any rooms or polls you created. You have full control over how your name appears in Poll Rooms (you can update it in your Profile settings in Poll Rooms)
+                    <p>
+                        What do you do with my information?<br />
+                        Our primary goals in collecting information are to provide and improve our Service and its features and content, to administer your membership and to enable users to enjoy and easily navigate the Site. There are different kinds of information and what we do varies with the type of information.
+                    <p>
+                        What types of information do you collect and what do you do with it?
+                        Personal Information is information that can be used to contact or identify you. Personal Information includes, but is not limited to your email address and name. We use your Personal Information to provide the Service and administer your inquiries. We may also use your Personal Information to contact you with Poll Rooms newsletters, marketing or promotional materials and other information that may be of interest to you. If you decide at any time that you no longer wish to receive such communications from us, please follow the unsubscribe instructions provided in any of the messages. You may also choose to provide personal information as part of your profile or by associating your identity on third party social networks with content you post on the Service. See the section below entitled Third Party Networking Services for details.
+                    <p>
+                        Service Usage Information. When you use our Service our servers automatically record information that your browser sends whenever you visit a website or online service, we call this Log Data and it includes, but is not limited to, your computer's Internet Protocol ("IP") address, browser type, the webpage you were visiting before you came to our Site, pages of our Site that you visit, the time spent on those pages, information you search for via our Service, access times and dates, and other statistics. We use this information to monitor and analyze use of the Service (e.g., to understand how our users interact with advertisements), for the Service's technical administration, to increase our Service's functionality and user-friendliness, and to better tailor it to our visitors' needs.
+                    <p>
+                        Like many websites and online services, we use "cookies" on our Service to collect information. A cookie is a small data file that we transfer to your computer's hard disk. Most Internet browsers automatically accept cookies. We may use both session cookies and persistent cookies to better understand how you interact with our Service, to save your preferences and personalize the Service for you, to monitor aggregate usage by Poll Rooms Users and web traffic routing on our Service and to improve our Service generally. Third Party advertisers may also place or read cookies on your browser. You can instruct your browser, by changing its options, to stop accepting cookies or to prompt you before accepting a cookie from the websites you visit. If you do not accept cookies, you may not be able to use all portions of the Site or all functionality of the Service.
+                    <p>
+                        Do you share my information with others?<br />
+                        Personal Information. Your email (if you are a registered user) will never be publicly available; however, any profile information you choose to add, if and when we allow such information to be added, will be publicly available so consider whether you want to any include Personal Information in your profile. All content you add to the Service (rooms, polls, comments) will be publicly available. Other than the foregoing, we do not share Personal Information with third parties except as follows:
+                    <p>
+                        Third Party Social Networking Services. First, please see the section above entitled, "What can I do with my social identities on other sites like Facebook and Twitter?". We allow registered users to link their accounts with certain third party social networking services ("SNSs"). In these instances, with your permission and on your behalf, we will share your Personal Information, including, but not limited to, information contained in your profile with the applicable SNS. Through use of such services' APIs we also receive certain information (which may include your Personal Information) in accordance with the privacy settings you have set in your SNS account, if any. Other than what we may share with the SNS in connection with your linking of accounts, the personal information an SNS has about you is obtained by the SNS independent of our Service. Other services follow different rules regarding the use or disclosure of the personal information you submit to them. We encourage you to read the privacy policies or statements of the other services you use. We also plan to allow users to associate their identities on various SNSs with Rooms and Polls they?e created, i.e., we will allow you to publicly associate some or all of your polls with your Twitter handle and/or Facebook identity etc.... This will be at your option and if you choose to do it then whatever SNS identities you choose to associate with your rooms and polls will be publicly visible and users will be able to visit your pages on those SNSs, subject to your privacy settings on the relevant SNSs, and will know that the polls and rooms you posted are related to those SNS pages.
+                        Service Providers. We may employ third party companies and individuals to facilitate our Service, to provide the Service on our behalf, to perform Site-related services (e.g., without limitation, maintenance services, database management, web analytics and improvement of the Service's features) or to assist us in analyzing how our Service is used. These third parties may have access to your Personal Information only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.
+                        Compliance with Laws and Law Enforcement. We may disclose any of your information if we believe that it is reasonably necessary to comply with a law, regulation or legal request; to protect the safety of any person; to address fraud, security or technical issues.
+                        Service Usage Information. We may share Service Usage Information in aggregated or non-aggregated formats with third parties for industry analysis, demographic profiling and other purposes.
+                    <p>
+                        Changing or Deleting Your Information<br />
+                        All registered users may review, update, correct or delete their Personal Information by contacting us and may delete polls they've uploaded as well by using the tools provided on the Service. If you would like us to delete your record in our system, please contact us at pollrooms@offsiteteam.com with a request that we delete your Personal Information from our database.
+                    <p>
+                        Security<br />
+                        Poll Rooms is very concerned with safeguarding your information. We employ reasonable physical, technological, and administrative security measures and attempt to ensure they are applicable under the circumstances (e.g., we encrypt certain information using secure socket layer technology (SSL)). No method of transmission over the Internet, or method of electronic storage, is 100% secure, however. Therefore, while we strive to use commercially acceptable means to protect your personal information, we cannot guarantee its absolute security.
+                    <p>
+                        We will make any legally required disclosures of any breach of the security, confidentiality, or integrity of your unencrypted electronically stored "personal data" (as defined in applicable state statutes on security breach notification) to you via email or conspicuous posting on the Site in the most expedient time possible and without unreasonable delay, insofar as consistent with (i) the legitimate needs of law enforcement or (ii) any measures necessary to determine the scope of the breach and restore the reasonable integrity of the data system.
+                    <p>
+                        International Transfer<br />
+                        Your information may be transferred to - and maintained on - computers located outside of your state, province, country or other governmental jurisdiction where the privacy laws may not be as protective as those in your jurisdiction. If you are located outside the United States and choose to provide information to us, Poll Rooms transfers Personal Information to the United States and processes it there. Your consent to this Privacy Policy by using the Service followed by your submission of such information represents your agreement to that transfer.
+                    <p>
+                        Links to Other Sites<br />
+                        Our Service may contain links to other websites. If you choose to visit an advertiser or third party website by "clicking on" a third party link, you will be directed to that third party's website. The fact that we link to a website is not an endorsement, authorization or representation of our affiliation with that third party, nor is it an endorsement of their privacy or information security policies or practices. We do not exercise control over third party websites or over the choice of which third party sites are linked to using the service. These other websites may place their own cookies or other files on your computer, collect data or solicit personal information from you. Other sites follow different rules regarding the use or disclosure of the personal information you submit to them. We encourage you to read the privacy policies or statements of the other websites you visit.
+                    <p>
+                        We may make Modifications or Changes<br />
+                        Poll Rooms may, its sole discretion, choose to modify, discontinue or terminate the Service, at any time and without prior notice. Poll Rooms may also choose to modify this Privacy Policy. If we choose to modify this Privacy Policy, we'll post it and give you a chance to provide feedback before they become effective. Once it becomes effective your continued use of the Service will mean you agree to be bound by the new policy. If you don't agree then you need to stop using the Service.
+                    <p>
+                        Contacting UsIf you have any questions about this Privacy Policy, please contact us at info@coralteq.com.
+</div>
+                </div>
+            <div class="modal-footer">
+                <a class="prevent-history" data-dismiss="modal" href="#">Close</a>
+                @*<button type="button" class="btn btn-prev" data-dismiss="modal">Close</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function randomCapcha() {
+        var rCapcha = $("#random-capcha");
+        var a = Math.floor((Math.random() * 10) + 1);
+        var b = Math.floor((Math.random() * 10) + 1);
+        rCapcha.text(a + "+" + b +" ? ");
+        return a + b;
+    }
+
+    $(document).ready(function () {
+        var sumCapcha = randomCapcha();
+
+        $.validator.addMethod( "regex", function (value, element, regexp) {
+                var re = new RegExp(regexp);
+                return this.optional(element) || re.test(value);
+            },
+        "Please check your input."
+        );
+
+        $("#Step4form").validate({
+            errorLabelContainer: '#validationSummary ul',
+            ignore:false,
+            onfocusout: false,
+            rules: {
+                Password: {
+                    required: true,
+                    regex: "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$",
+                },
+                ConfirmPassword: {
+                    required: true,
+                    equalTo: "#Password",
+                },
+                Capcha: {
+                    required: true,
+                    range: [sumCapcha, sumCapcha],
+                },
+                IsReadAccept: {
+                    required: true,
+                },
+            },
+            messages: {
+
+                Password: {
+                    required: "Field \"Password\" is required",
+                    regex: "Passwords must be at least 8 characters in length and include both upper and lower case letters as well as at least one number.",
+                },
+                ConfirmPassword: {
+                    required: "Field \"Confirm Password\" is required",
+                    equalTo: "Password and confirmation password do not match",
+                },
+                Capcha: {
+                    required: "Field \"Capcha\" is required",
+                    range: "The field \"Capcha\" value is incorrect",
+                },
+                IsReadAccept: {
+                    required: "Please indicate that you have read and accepted terms of use",
+                }
+            },
+
+            invalidHandler: myInvalidHandler,
+            success: onSuccess,
+            highlight: onHighlight,
+            unhighlight: onUnhighlight,
+
+            //invalidHandler: function (event, validator) {
+            //    var tips = Opentip.tips;
+            //    for (var i = 0; i < validator.numberOfInvalids() ; i++) {
+            //        var name = validator.errorList[i].element.name;
+            //        //var mes = name + ": " + validator.errorList[i].message;
+            //        var mes = validator.errorList[i].message;
+            //        var iderrorE = '#' + name + 'E';
+            //        var errorE = $(iderrorE);
+            //        errorE[0].style.display = 'block';
+            //        if (tips.length != 0) {
+            //            for (var i in tips) {
+            //                var b = true;
+            //                if (tips[i].content == mes) {
+            //                    b = false;
+            //                    break;
+            //                }
+            //            }
+            //            if (b) {
+            //                //alert("+tip+= " + mes);
+            //                new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+            //            }
+            //        } else {
+            //            //alert("newtip+= " + mes);
+            //            new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+            //        }
+            //    }
+            //},
+
+            //success: function (label, element) {
+            //    label.display = 'none';
+            //    var iderrorE = '#' + element.name + 'E';
+            //    var errorE = $(iderrorE);
+            //    errorE[0].style.display = 'none';
+            //},
+
+            //highlight: function (element, errorClass, validClass) {
+            //        $(element).addClass(errorClass).removeClass(validClass);
+            //        var iderrorE = '#' + element.name + 'E';
+            //        var errorE = $(iderrorE);
+            //        errorE[0].style.display = 'block';
+            //        var errorFromValidator = $.grep(this.errorList, function (e, index) {
+            //            if (e.element == element) return true;
+            //            return false;
+            //        });
+            //        var newcontent = errorFromValidator[0].message;
+            //        var tips = Opentip.tips;
+            //        for (var i in tips) {
+            //            //alert("tips["+i+"].triggerElement.selector:" + tips[i].triggerElement.selector + " =? iderrorE:" + iderrorE + "\n" +
+            //            //    "tips["+i+"].content:" + tips[i].content + " =? newcontent:" + newcontent);
+            //            if (tips[i].triggerElement.selector == (iderrorE) && tips[i].content != newcontent) {
+            //                tips[i].setContent(newcontent);
+            //                //alert("new content: " + newcontent);
+            //                break;
+            //            }
+            //        }
+            //},
+
+            //unhighlight: function (element, errorClass, validClass) {
+            //    $(element).removeClass(errorClass).addClass(validClass);
+            //    //$(element.form).find("div[id=#" + element.id + "E]").removeClass(errorClass);
+            //    var iderrorE = '#' + element.name + 'E';
+            //    var errorE = $(iderrorE);
+            //    errorE[0].style.display = 'none';
+            //},
+
+        });
+
+    });
+
+    function ShowMessageTerms() {
+        $('#myModalLabel').text("Coral MSP Terms of Use");
+        $('#PrivacyPolicyContainer').hide();
+        $('#TermsOfUseContainer').show();
+        $('#myModal').modal('show');
+    };
+
+    function ShowMessagePrivacy() {
+        $('#myModalLabel').text("Coral MSP Privacy Policy");
+        $('#TermsOfUseContainer').hide();
+        $('#PrivacyPolicyContainer').show();
+        $('#myModal').modal('show');
+    };
+
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

@@ -1,0 +1,155 @@
+﻿@using Cor.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="login_page">
+    <div class="content">
+        <div class="login_outline"></div>
+        <div class="login_background"></div>
+        <div class="version upperCase">
+            coral multi-sided platform 0.2.6.95 iQA
+            <div class="logo_s">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="" pageAlignment="none" x="0px" y="0px" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve" bodyBackgroundColor="rgba(148,120,120,0)"><defs /><g type="LAYER" name="workspace" id="workspace" locked="true" /><g id="Layer 01" type="LAYER" name="Layer 01"><path transform="matrix(1 0 0 1 93.134055058793 130.17470922518442)" width="238.23053892215546" height="369.32035928143745" stroke-width="0.9999999999999994" stroke-miterlimit="3" stroke="#F94B52" fill="#FFFFFF" d="M147.47604790419132,95.79640718562837 L119.74550898203574,-57.98203592814406 L357.9760479041912,-2.842170943040401e-14 L189.0718562874249,311.3383233532934 L147.47604790419143,95.79640718562831 " /><path transform="matrix(1 0 0 1 -26.611453923237036 188.1567451533271)" width="181.50898203592863" height="206.71856287425413" stroke-width="1.1487427769075582" stroke-miterlimit="3" stroke="#F94B52" fill="#FFFFFF" d="M74.36826347305293,68.06586826347018 L210.49999999999886,5.041916167661782 L255.87724550898156,211.76047904191591 L119.74550898203472,104.61976047903892 L74.36826347305293,68.06586826347018 Z " /></g></svg>
+            </div>
+        </div>
+        <div class="row" >       
+            <section id="loginForm" class="login_container">
+                @using (Html.BeginForm("About123", "Home", FormMethod.Post, new { @class = "form-horizontal ", role = "form", id = "Loginform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email,"Login", new { @class = "col-sm-3 col-md-3 control-label" })
+                        <div class="col-sm-9 col-md-9">
+                            <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            </div>
+                            <div id="EmailE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top:15px">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-sm-3 col-md-3 control-label" })
+                        <div class="col-sm-9 col-md-9">
+                            <div class="edit-border col-xs-11 col-sm-11 col-md-11">
+                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+                            </div>
+                            <div id="PasswordE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" class="prevent-history btn btn-default upperCase" value="submit" onclick="$('#Loginform').submit();" />
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-right:35px">
+                        <a class="prevent-history" style="float:left" href="/ForgotPassword">Forgot Password?</a>
+                        <a class="prevent-history" style="float:right"  href="https://coralteq.zendesk.com" target="_blank">Contact Coral</a>
+                        @Html.ActionLink("Register", "Index", "Register", null, new { @class = "center_link prevent-history" })
+                    </div>
+                }
+            </section>
+        </div>
+    </div>
+    <div class="copyright">&copy; 2014-2016 Coral Technology, LLC</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        
+        $("#Loginform").validate({
+        rules: {
+            Email: {
+                required: true,
+            },
+            Password: {
+                required: true,
+            },
+        },
+        messages:{
+            Email: {
+                required: "Field \"Login\" is required",
+            },
+            Password: {
+                required: "Field \"Password\" is required",
+            },
+        },
+        invalidHandler: myInvalidHandler,
+        success: onSuccess,
+        highlight: onHighlight,
+        unhighlight: onUnhighlight,
+        //invalidHandler: function (event, validator) {
+        //    var tips = Opentip.tips;
+        //    for (var i = 0; i < validator.numberOfInvalids() ; i++) {
+        //        var name = validator.errorList[i].element.name;
+        //        var mes = validator.errorList[i].message;
+        //        var iderrorE = '#' + name + 'E';
+        //        var errorE = $(iderrorE);
+        //        errorE[0].style.display = 'block';
+        //        if (tips.length != 0) {
+        //            for (var j in tips) {
+        //                var b = true;
+        //                if (tips[j].content == mes) {
+        //                    b = false;
+        //                    break;
+        //                }
+        //            }
+        //            if (b) {
+        //                //alert("+tip+= " + mes);
+        //                new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+        //            }
+        //        } else {
+        //            //alert("newtip+= " + mes);
+        //            new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+        //        }
+        //    }
+        //},
+        
+        //success: function (label, element) {
+        //    label.display = 'none';
+        //    var iderrorE = '#' + element.name + 'E';
+        //    var errorE = $(iderrorE);
+        //    errorE[0].style.display = 'none';
+        //},
+
+        //highlight: function (element, errorClass, validClass) {
+        //    $(element).addClass(errorClass).removeClass(validClass);
+        //    var iderrorE = '#' + element.name + 'E';
+        //    var errorE = $(iderrorE);
+        //    errorE[0].style.display = 'block';
+        //    var errorFromValidator = $.grep(this.errorList, function (e, index) {
+        //        if (e.element == element) return true;
+        //        return false;
+        //    });
+        //    var newcontent = errorFromValidator[0].message;
+        //    var tips = Opentip.tips;
+        //    if (tips.length != 0) {
+        //        var tip = $.grep(tips, function (e, index) {
+        //            if (e.triggerElement.selector == iderrorE) return true;
+        //            return false;
+        //        });
+        //        if (tip.length != 0) {
+        //            if (tip[0].content != newcontent) {
+        //                tip[0].setContent(newcontent);
+        //                //alert("new content: " + newcontent);
+        //            }
+        //        } else {
+        //            new Opentip(errorE, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+        //        }
+        //    } else new Opentip(errorE, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+        //},
+        
+        //unhighlight: function (element, errorClass, validClass) {
+        //    $(element).removeClass(errorClass).addClass(validClass);
+        //    var iderrorE = '#' + element.name + 'E';
+        //    var errorE = $(iderrorE);
+        //    errorE[0].style.display = 'none';
+        //},
+    });
+});
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -12,13 +12,12 @@
                     <div class="label-big">New User Registration</div>
                     <div class="label-small">Step 3 of 4:</div>
                     <div class="label-normal">Address Info</div>
-                    @*<div class="clear top_spacer"></div>*@
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
-            @using (Html.BeginForm("Step4", "Register", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "Step3form" }))
+            @using (Html.BeginForm("Step3", "Register", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "Step3form" }))
             {
                 List<string> Countries = new List<string>()
                 {
@@ -27,7 +26,8 @@
 
                 List<string> States = new List<string>()
                 {
-                    "USA1","Mexico2","Japan3","Bermuda4","Canada5"
+                    //выбор штатов определенной страны не реализую, так как их бы в базе хранить по-хорошему
+                    "State1","State2","State3","State4","State5"
                 };
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary("", new { @class = "text-danger", style = "display:none" })
@@ -146,12 +146,12 @@
     <div id="foo">
         <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
             <div class="row">
-                <a class="prevent-history a-hidden-xs" href="/Home/Index">Back to Login Page</a>
+                <a class="prevent-history a-hidden-xs" href="/Login">Back to Login Page</a>
                 <input type="button" name="btnNext" class="prevent-history btn-next" value="next" onclick="$('#Step3form').submit();" />
                 <input type="button" id="id_prev" class="btn-prev" value="Previous" onclick="location.href = '/Register/Step2'">
             </div>
             <div class="row">
-                <a class="prevent-history a-visible-xs" href="/Home/Index">Back to Login</a>
+                <a class="prevent-history a-visible-xs" href="/Login">Back to Login</a>
                 <div class="registration_copyright">
                     <span class="a-hidden-xs">CORAL MULTI-SIDED PLATFORM 0.2.6.95 iQA</span>
                     <span class="a-visible-xs">CORAL PLATFORM 0.2.6.95 iQA</span>
@@ -231,81 +231,7 @@
             success: onSuccess,
             highlight: onHighlight,
             unhighlight: onUnhighlight,
-
-            //invalidHandler: function (event, validator) {
-            //    var tips = Opentip.tips;
-            //    for (var i = 0; i < validator.numberOfInvalids() ; i++) {
-            //        var name = validator.errorList[i].element.name;
-            //        var mes = validator.errorList[i].message;
-            //        var iderrorE = '#' + name + 'E';
-            //        var errorE = $(iderrorE);
-            //        errorE[0].style.display = 'block';
-            //        if (tips.length != 0) {
-            //            for (var i in tips) {
-            //                var b = true;
-            //                if (tips[i].content == mes) {
-            //                    b = false;
-            //                    break;
-            //                }
-            //            }
-            //            if (b) {
-            //                //alert("+tip+= " + mes);
-            //                new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
-            //            }
-            //        } else {
-            //            //alert("newtip+= " + mes);
-            //            new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
-            //        }
-            //    }
-            //},
-
-            //success: function (label, element) {
-            //    label.display = 'none';
-            //    var iderrorE = '#' + element.name + 'E';
-            //    var errorE = $(iderrorE);
-            //    errorE[0].style.display = 'none';
-            //},
-
-            //highlight: function (element, errorClass, validClass) {
-            //        $(element).addClass(errorClass).removeClass(validClass);
-            //        var iderrorE = '#' + element.name + 'E';
-            //        var errorE = $(iderrorE);
-            //        errorE[0].style.display = 'block';
-            //        var errorFromValidator = $.grep(this.errorList, function (e, index) {
-            //            if (e.element == element) return true; 
-            //            return false; 
-            //        });
-            //        var newcontent = errorFromValidator[0].message;
-            //        var tips = Opentip.tips;
-            //        if (tips.length != 0) {
-            //            var tip = $.grep(tips, function (e, index) {
-            //                if (e.triggerElement.selector == iderrorE) return true;
-            //                return false;
-            //            });
-            //            if (tip.length != 0) {
-            //                if (tip[0].content != newcontent) {
-            //                    tip[0].setContent(newcontent);
-            //                    //alert("new content: " + newcontent);
-            //                }
-            //            } else {
-            //                //alert("new tip");
-            //                new Opentip(errorE, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
-            //            }
-            //        } else new Opentip(errorE, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
-            //},
-
-            //unhighlight: function (element, errorClass, validClass) {
-            //    if (!(element.name == "Fax" || element.name == "Mobile" || element.name == "MName")) {
-            //        $(element).removeClass(errorClass).addClass(validClass);
-            //        //$(element.form).find("div[id=#" + element.id + "E]").removeClass(errorClass);
-            //        var iderrorE = '#' + element.name + 'E';
-            //        var errorE = $(iderrorE);
-            //        errorE[0].style.display = 'none';
-            //    }
-            //},
-
         });
-
     });
 </script>
 

@@ -1,6 +1,4 @@
-﻿@using Cor.Models
-@model BusinessAreaViewModel
-@{
+﻿@{
     ViewBag.Title = "Register";
 }
 
@@ -17,7 +15,7 @@
         </div>
         <div class="row">
             <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
-                @using (Html.BeginForm("Step3", "Register", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "Step2form" }))
+                @using (Html.BeginForm("Step2", "Register", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "Step2form" }))
                 {
                     var BusinessArea = new List<String>()
                     {   "IT",
@@ -44,7 +42,7 @@
                                 {
                                 <div class="form-group" style="margin-bottom:0px">
                                     <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding:0">
-                                        <input id="@item" type="checkbox" name="@item" value="@item+check">
+                                        <input id="@item" type="checkbox" name="names" @*name="@item"*@ value="@item">
                                         <label for="@item" class="check-label"></label>
                                     </div>
                                     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
@@ -77,12 +75,12 @@
     <div id="foo">
         <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
             <div class="row">
-                <a class="prevent-history a-hidden-xs" href="/Home/Index">Back to Login Page</a>
+                <a class="prevent-history a-hidden-xs" href="/Login">Back to Login Page</a>
                 <input type="button" name="btnNext" class="prevent-history btn-next" value="next" onclick="SubmitForm()" />
-                <input type="button" id="id_prev" class="btn-prev" value="Previous" onclick="location.href = '/Register'">
+                <input type="button" id="id_prev" class="btn-prev" value="Previous" onclick="location.href = '/Register/Step1'">
             </div>
             <div class="row">
-                <a class="prevent-history a-visible-xs" href="/Home/Index">Back to Login</a>
+                <a class="prevent-history a-visible-xs" href="/Login">Back to Login</a>
                 <div class="registration_copyright">
                     <span class="a-hidden-xs">CORAL MULTI-SIDED PLATFORM 0.2.6.95 iQA</span>
                     <span class="a-visible-xs">CORAL PLATFORM 0.2.6.95 iQA</span>

@@ -14,10 +14,17 @@ namespace Cor
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "DefaultRegister",
+                url: "Register/{action}/{id}",
+                defaults: new { controller = "Register", action = "Step1", id = UrlParameter.Optional }
+            );
+            
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Login", action = "Login", id = UrlParameter.Optional }
             );
+
         }
     }
 }

@@ -10,34 +10,20 @@ namespace Cor.Controllers
     public class RegisterController : Controller
     {
         public static NewUser RegisterUser = new NewUser();
-
-        static RegisterController()
-        {
-
-        }
-
-        //private static NewUser RegisterUser;
-
-        // GET: Register
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        //public ActionResult Index(ContactInfoViewModel model)
-        //{
-        //    return View();
-        //}
-
+        
         [HttpGet]
-        public ActionResult Step2()
+        public ActionResult Step1()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Step2(ContactInfoViewModel model)
+        public ActionResult Step1(ContactInfoViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             RegisterUser.Salutation = model.Salutation;
             RegisterUser.FName = model.FName;
             RegisterUser.MName = model.MName;
@@ -49,8 +35,27 @@ namespace Cor.Controllers
             RegisterUser.Phone = model.Phone;
             RegisterUser.Fax = model.Fax;
             RegisterUser.Mobile = model.Mobile;
+            return RedirectToAction("Step2");
+        }
+
+        [HttpGet]
+        public ActionResult Step2()
+        {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Step2(List<string> names)
+        {
+            List<string> newBusinessArea = new List<string>();
+            for (int i = 0; i < names.Count; i++)
+            {
+                newBusinessArea.Add(names[i]);
+            }
+            RegisterUser.BusinessArea = newBusinessArea;
+            return RedirectToAction("Step3");
+        }
+        
 
         [HttpGet]
         public ActionResult Step3()
@@ -59,22 +64,7 @@ namespace Cor.Controllers
         }
 
         [HttpPost]
-        public ActionResult Step3(BusinessAreaViewModel model)
-        {
-            List<string> businessArea = new List<string>();
-            if (model != null) RegisterUser.BusinessArea = model.BusinessArea;
-            else RegisterUser.BusinessArea = businessArea;
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Step4()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Step4(AddressInfoViewModel model)
+        public ActionResult Step3(AddressInfoViewModel model)
         {
             UserAddress uaddress = new UserAddress();
             uaddress.Country = model.Country;
@@ -84,15 +74,26 @@ namespace Cor.Controllers
             uaddress.City = model.City;
             uaddress.State = model.State;
             RegisterUser.Address = uaddress;
+            return RedirectToAction("Step4");
+        }
+
+        [HttpGet]
+        public ActionResult Step4()
+        {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Step5(PasswordViewModel model)
+        public ActionResult Step4(PasswordViewModel model)
         {
             RegisterUser.Password = model.Password;
             RegisterUser.ConfirmPassword = model.ConfirmPassword;
-            return View(RegisterUser);
+            return RedirectToAction("Step5");
+        }
+        
+        public ActionResult Step5()
+        {
+            return View();
         }
     }
 }

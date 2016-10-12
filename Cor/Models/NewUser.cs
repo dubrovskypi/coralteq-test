@@ -22,32 +22,6 @@ namespace Cor.Models
 
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-
-        public override string ToString()
-        {
-            string s = "";
-            s = Salutation + " | " +
-            FName + " | " +
-            //MName  + " | " +
-            LName  + " | " +
-            Company  + " | " +
-            Title  + " | " +
-            Email  + " | " +
-            ConfirmEmail  + " | " +
-            Phone + " | " +
-            //Fax  + " | " +
-            //Mobile  + " | " +
-            Address.Country +" | " +
-            Address.City + " | " +
-            Address.State+ " | " +
-
-            ((BusinessArea!=null)?BusinessArea.ToString():"null") + " | " +
-
-            Password + " | " +
-            ConfirmPassword;
-
-            return s;
-        }
     }
 
     public class UserAddress

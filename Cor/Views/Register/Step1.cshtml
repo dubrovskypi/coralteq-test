@@ -17,16 +17,8 @@
         </div>
         <div class="row">
             <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
-            @using (Html.BeginForm("Step2", "Register", FormMethod.Post, new { @class = "form-horizontal", role = "form" , id = "Step1form"}))
+            @using (Html.BeginForm("Step1", "Register", FormMethod.Post, new { @class = "form-horizontal", role = "form" , id = "Step1form"}))
             {
-                var items = new List<SelectListItem>()
-                {
-                    new SelectListItem() { Text = "Mr.", Value = "Mr." },
-                    new SelectListItem() { Text = "Msr.", Value = "Msr." },
-                    new SelectListItem() { Text = "Ms.", Value = "Ms." },
-                    new SelectListItem() { Text = "Dr.", Value = "Dr." },
-                };
-
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary("", new { @class = "text-danger", style = "display:none"})
                 <table>
@@ -36,7 +28,6 @@
                                 <label class="col-sm-5 col-md-4 control-label upperCase" style="white-space:nowrap;" for="Salutation"><span class="glyphicon glyphicon-asterisk "></span>Salutation</label>
                                 <div class="col-sm-7 col-md-8">
                                     <div id="comboboxSalut"class="edit-border col-xs-11 col-sm-11 col-md-11">
-                                        @*@Html.DropDownListFor(m => m.Salutation, items, "-Unspecified-", new { @class = "form-control" })*@
                                         <div class="input-group">
                                             @Html.TextBoxFor(m => m.Salutation, new { @class = "form-control" })
                                             <div class="input-group-btn">
@@ -137,7 +128,6 @@
                                 @Html.LabelFor(m => m.Fax, new { @class = "col-sm-5 col-md-4 control-label upperCase ignore" })
                                 <div class="col-sm-7 col-md-8">
                                     <div class="edit-border col-xs-11 col-sm-11 col-md-11">
-                                        @*<input id="phoneFax" type="tel" name="tel" placeholder="(___) ___-____" pattern="([0-9]{3})\-[0-9]{3}\-[0-9]{4}">*@
                                         @Html.TextBoxFor(m => m.Fax, new { @class = "form-control phone", type = "tel", placeholder = "(___) ___-____" })
                                     </div>
                                     <div id="FaxE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
@@ -163,7 +153,7 @@
     <div id="foo">
         <div class="col-sm-offset-1 col-md-offset-2 col-sm-10 col-md-8 col-xs-12">
             <div class="row">
-                <a class="prevent-history" href="/Home/Index">Back to Login Page</a>
+                <a class="prevent-history" href="/Login">Back to Login Page</a>
                 <input type="button" name="btnNext" class="prevent-history btn-next" value="next" onclick="$('#Step1form').submit();"/>
             </div>
             <div class="row">
@@ -275,81 +265,7 @@
             success: onSuccess,
             highlight: onHighlight,
             unhighlight: onUnhighlight,
-
-            //invalidHandler: function (event, validator) {
-            //    var tips = Opentip.tips;
-            //    for (var i = 0; i < validator.numberOfInvalids() ; i++) {
-            //        var name = validator.errorList[i].element.name;
-            //        var mes = validator.errorList[i].message;
-            //        var iderrorE = '#' + name + 'E';
-            //        var errorE = $(iderrorE);
-            //        errorE[0].style.display = 'block';
-            //        if (tips.length != 0) {
-            //            for (var j in tips) {
-            //                var b = true;
-            //                if (tips[j].content == mes) {
-            //                    b = false;
-            //                    break;
-            //                }
-            //            }
-            //            if (b) {
-            //                //alert("+tip+= " + mes);
-            //                new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
-            //            }
-            //        } else {
-            //            //alert("newtip+= " + mes);
-            //            new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
-            //        }
-            //    }
-            //},
-
-            //success: function (label, element) {
-            //    label.display = 'none';
-            //    var iderrorE = '#' + element.name + 'E';
-            //    var errorE = $(iderrorE);
-            //    errorE[0].style.display = 'none';
-            //},
-
-            //highlight: function (element, errorClass, validClass) {
-            //    if (!(element.name == "Fax" || element.name == "Mobile")) {
-            //        $(element).addClass(errorClass).removeClass(validClass);
-            //        var iderrorE = '#' + element.name + 'E';
-            //        var errorE = $(iderrorE);
-            //        errorE[0].style.display = 'block';
-            //        var errorFromValidator = $.grep(this.errorList, function (e, index) {
-            //            if (e.element == element) return true;
-            //            return false;
-            //        });
-            //        var newcontent = errorFromValidator[0].message;
-            //        var tips = Opentip.tips;
-            //        if (tips.length != 0) {
-            //            var tip = $.grep(tips, function (e, index) {
-            //                if (e.triggerElement.selector == iderrorE) return true;
-            //                return false;
-            //            });
-            //            if (tip.length != 0) {
-            //                if (tip[0].content != newcontent) {
-            //                    tip[0].setContent(newcontent);
-            //                    //alert("new content: " + newcontent);
-            //                }
-            //            } else {
-            //                new Opentip(errorE, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
-            //            }
-            //        } else new Opentip(errorE, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
-            //    }
-            //},
-
-            //unhighlight: function (element, errorClass, validClass) {
-            //    if (!(element.name == "Fax" || element.name == "Mobile")) {
-            //        $(element).removeClass(errorClass).addClass(validClass);
-            //        var iderrorE = '#' + element.name + 'E';
-            //        var errorE = $(iderrorE);
-            //        errorE[0].style.display = 'none';
-            //    }
-            //},
-
         });
-
     });
 </script>
 

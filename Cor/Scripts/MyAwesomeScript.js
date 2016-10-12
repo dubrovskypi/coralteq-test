@@ -51,23 +51,23 @@ function bindClearButton(Edit) {
 //validation settings
 function onSuccess(label, element) {
     label.display = 'none';
-    var iderrorE = '#' + element.name + 'E';
-    var errorE = $(iderrorE);
-    errorE[0].style.display = 'none';
+    var idErrorElement = '#' + element.name + 'E';
+    var errorElement = $(idErrorElement);
+    errorElement[0].style.display = 'none';
 };
 
 function onUnhighlight(element, errorClass, validClass) {
     $(element).removeClass(errorClass).addClass(validClass);
-    var iderrorE = '#' + element.name + 'E';
-    var errorE = $(iderrorE);
-    errorE[0].style.display = 'none';
+    var idErrorElement = '#' + element.name + 'E';
+    var errorElement = $(idErrorElement);
+    errorElement[0].style.display = 'none';
 };
 
 function onHighlight(element, errorClass, validClass) {
     $(element).addClass(errorClass).removeClass(validClass);
-    var iderrorE = '#' + element.name + 'E';
-    var errorE = $(iderrorE);
-    errorE[0].style.display = 'block';
+    var idErrorElement = '#' + element.name + 'E';
+    var errorElement = $(idErrorElement);
+    errorElement[0].style.display = 'block';
     var errorFromValidator = $.grep(this.errorList, function (e, index) {
         if (e.element == element) return true;
         return false;
@@ -76,7 +76,7 @@ function onHighlight(element, errorClass, validClass) {
     var tips = Opentip.tips;
     if (tips.length != 0) {
         var tip = $.grep(tips, function (e, index) {
-            if (e.triggerElement.selector == iderrorE) return true;
+            if (e.triggerElement.selector == idErrorElement) return true;
             return false;
         });
         if (tip.length != 0) {
@@ -85,34 +85,34 @@ function onHighlight(element, errorClass, validClass) {
                 //alert("new content: " + newcontent);
             }
         } else {
-            new Opentip(errorE, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+            new Opentip(errorElement, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
         }
-    } else new Opentip(errorE, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+    } else new Opentip(errorElement, newcontent, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
 };
 
 function myInvalidHandler(event, validator) {
     var tips = Opentip.tips;
     for (var i = 0; i < validator.numberOfInvalids() ; i++) {
         var name = validator.errorList[i].element.name;
-        var mes = validator.errorList[i].message;
-        var iderrorE = '#' + name + 'E';
-        var errorE = $(iderrorE);
-        errorE[0].style.display = 'block';
+        var message = validator.errorList[i].message;
+        var idErrorElement = '#' + name + 'E';
+        var errorElement = $(idErrorElement);
+        errorElement[0].style.display = 'block';
         if (tips.length != 0) {
             for (var j in tips) {
                 var b = true;
-                if (tips[j].content == mes) {
+                if (tips[j].content == message) {
                     b = false;
                     break;
                 }
             }
             if (b) {
-                //alert("+tip+= " + mes);
-                new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+                //alert("+tip+= " + message);
+                new Opentip(errorElement, message, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
             }
         } else {
-            //alert("newtip+= " + mes);
-            new Opentip(errorE, mes, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
+            //alert("newtip+= " + message);
+            new Opentip(errorElement, message, { showOn: 'mouseover', tipJoint: "top right", target: true, style: 'myStyle' });
         }
     }
 };

@@ -140,6 +140,7 @@
                                         @*<input id="phoneFax" type="tel" name="tel" placeholder="(___) ___-____" pattern="([0-9]{3})\-[0-9]{3}\-[0-9]{4}">*@
                                         @Html.TextBoxFor(m => m.Fax, new { @class = "form-control phone", type = "tel", placeholder = "(___) ___-____" })
                                     </div>
+                                    <div id="FaxE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -148,7 +149,7 @@
                                     <div class="edit-border col-xs-11 col-sm-11 col-md-11">
                                         @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control phone", type = "tel", placeholder = "(___) ___-____" })
                                     </div>
-                                    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+                                    <div id="MobileE" class="error-info col-xs-1 col-sm-1 col-md-1 glyphicon glyphicon-exclamation-sign"></div>
                                 </div>
                             </div>
                         </td>
